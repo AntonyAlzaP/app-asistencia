@@ -11,7 +11,8 @@
     "electron:serve": "cross-env ELECTRON_START_URL=http://localhost:4200 electron .",
     "electron:dev": "concurrently -k -n ANGULAR,ELECTRON -c blue,green \"npm run start\" \"wait-on http://localhost:4200 && npm run electron:serve\"",
     "electron:pack": "npm run build && electron-builder",
-    "electron:dist": "npm run build -- --configuration production && electron-builder --publish=never"
+    "electron:dist": "npm run build -- --configuration production && electron-builder --publish=never",
+    "electron:run": "npm run build -- --configuration production && electron ."
   },
   "prettier": {
     "printWidth": 100,
