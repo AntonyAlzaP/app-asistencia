@@ -73,7 +73,7 @@
     "@types/jasmine": "~5.1.0",
     "concurrently": "^10.0.5",
     "cross-env": "^10.1.0",
-    "electron": "^43.4.0",
+    "electron": "42.9.3",
     "electron-builder": "^26.15.3",
     "jasmine-core": "~5.8.0",
     "karma": "~6.4.0",
