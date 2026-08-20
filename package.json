@@ -61,8 +61,10 @@
     },
     "mac": {
       "target": "dmg",
-      "category": "public.app-category.business"
-    }
+      "category": "public.app-category.business",
+      "identity": null
+    },
+    "afterSign": "scripts/afterSign.js"
   },
   "devDependencies": {
     "@angular/build": "^20.1.6",
