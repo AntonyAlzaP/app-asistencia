@@ -1,0 +1,21 @@
+<p-dialog
+  [(visible)]="visible"
+  [header]="title()"
+  [modal]="true"
+  [closable]="true"
+  [style]="{ width: '480px' }"
+  (onHide)="close()"
+>
+  <div class="camera-wrap">
+    @if (errorMessage()) {
+      <p-message severity="error" [text]="errorMessage()!" styleClass="w-full" />
+    }
+    <video #video class="camera-video" [class.hidden]="!ready()" muted playsinline></video>
+    <canvas #canvas class="hidden"></canvas>
+  </div>
+
+  <ng-template #footer>
+    <p-button label="Cancelar" severity="secondary" [text]="true" (onClick)="close()" />
+    <p-button label="Capturar" icon="pi pi-camera" [disabled]="!ready()" (onClick)="capture()" />
+  </ng-template>
+</p-dialog>

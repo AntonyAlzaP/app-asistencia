@@ -1,0 +1,41 @@
+<app-topbar />
+
+<div class="dashboard">
+  <p-card class="status-card" [class.state-working]="isCheckedIn()" [class.state-off]="!isCheckedIn()">
+    <div class="status-body">
+      <div class="status-pill">
+        <i class="pi" [class.pi-circle-fill]="true"></i>
+        {{ isCheckedIn() ? 'TRABAJANDO' : 'FUERA DE TURNO' }}
+      </div>
+
+      <div class="timer">
+        <span class="timer-label">{{ isCheckedIn() ? 'Tiempo trabajando hoy' : 'Aún no marcas ingreso' }}</span>
+        <span class="timer-value">{{ elapsedLabel() }}</span>
+      </div>
+
+      @if (errorMessage()) {
+        <p class="error">{{ errorMessage() }}</p>
+      }
+
+      <p-button
+        [label]="isCheckedIn() ? 'Marcar salida' : 'Marcar ingreso'"
+        [icon]="isCheckedIn() ? 'pi pi-sign-out' : 'pi pi-sign-in'"
+        [severity]="isCheckedIn() ? 'danger' : 'success'"
+        [loading]="saving()"
+        [disabled]="loading()"
+        (onClick)="openCamera()"
+        styleClass="mark-btn"
+      />
+
+      <div class="week-summary">
+        Horas trabajadas esta semana: <strong>{{ weekHoursLabel() }}</strong>
+      </div>
+    </div>
+  </p-card>
+</div>
+
+<app-camera-capture
+  [(visible)]="cameraVisible"
+  [title]="isCheckedIn() ? 'Foto de salida' : 'Foto de ingreso'"
+  (captured)="onCaptured($event)"
+/>

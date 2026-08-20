@@ -1,0 +1,78 @@
+<app-topbar />
+
+<div class="detail-page">
+  <div class="detail-header">
+    <a routerLink="/auditor" class="back-link"><i class="pi pi-arrow-left"></i> Volver</a>
+    <h2>{{ profile()?.fullName }}</h2>
+    <p class="subtitle">{{ profile()?.email }}</p>
+  </div>
+
+  <p-card header="Horas por día (últimas 4 semanas)">
+    <p-table [value]="dailyRows()" [loading]="loading()">
+      <ng-template #header>
+        <tr>
+          <th>Fecha</th>
+          <th>Horas</th>
+          <th>Estado</th>
+        </tr>
+      </ng-template>
+      <ng-template #body let-row>
+        <tr>
+          <td>{{ row.date }}</td>
+          <td>{{ formatHours(row.hours) }}</td>
+          <td>
+            @if (row.isOpenSession) {
+              <p-tag value="En curso" severity="info" />
+            } @else if (row.alert) {
+              <p-tag value="Bajo lo requerido" severity="danger" />
+            } @else {
+              <p-tag value="Cumplido" severity="success" />
+            }
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template #emptymessage>
+        <tr>
+          <td colspan="3">Sin registros en este periodo.</td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </p-card>
+
+  <p-card header="Marcas registradas" styleClass="mt-3">
+    <p-table [value]="records()" [loading]="loading()" [rows]="20" [paginator]="records().length > 20">
+      <ng-template #header>
+        <tr>
+          <th>Fecha y hora</th>
+          <th>Tipo</th>
+          <th>Ubicación</th>
+        </tr>
+      </ng-template>
+      <ng-template #body let-record>
+        <tr>
+          <td>{{ record.takenAt | date: 'medium' }}</td>
+          <td>
+            <p-tag [value]="record.type === 'in' ? 'Ingreso' : 'Salida'" [severity]="record.type === 'in' ? 'success' : 'secondary'" />
+            @if (record.autoClosed) {
+              <p-tag value="Auto 18:00" severity="warn" styleClass="ml-1" />
+            }
+          </td>
+          <td>
+            @if (mapsUrl(record); as url) {
+              <a [href]="url" target="_blank" rel="noopener">
+                <i class="pi pi-map-marker"></i> Ver mapa
+              </a>
+            } @else {
+              <span class="no-location">Sin ubicación</span>
+            }
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template #emptymessage>
+        <tr>
+          <td colspan="3">Sin marcas registradas.</td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </p-card>
+</div>

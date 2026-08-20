@@ -1,0 +1,26 @@
+<header class="topbar">
+  <div class="brand">
+    <img src="logo-daewoo.png" alt="Daewoo Perú" class="brand-logo" />
+    <span class="brand-app">Control de Asistencia</span>
+  </div>
+
+  @if (auth.isAuditor()) {
+    <nav class="nav-links">
+      <a routerLink="/colaborador" routerLinkActive="active">
+        <i class="pi pi-clock"></i> Marcar asistencia
+      </a>
+      <a routerLink="/auditor" routerLinkActive="active">
+        <i class="pi pi-chart-bar"></i> Panel de auditor
+      </a>
+    </nav>
+  }
+
+  <div class="user">
+    <div class="user-info">
+      <span class="user-name">{{ auth.profile()?.fullName }}</span>
+      <span class="user-role">{{ auth.isAuditor() ? 'Auditor' : 'Colaborador' }}</span>
+    </div>
+    <p-button icon="pi pi-key" severity="secondary" [text]="true" routerLink="/perfil/contrasena" pTooltip="Cambiar contraseña" tooltipPosition="bottom" />
+    <p-button icon="pi pi-sign-out" label="Salir" severity="secondary" [text]="true" (onClick)="logout()" />
+  </div>
+</header>

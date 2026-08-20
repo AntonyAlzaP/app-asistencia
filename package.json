@@ -1,0 +1,85 @@
+{
+  "name": "app-asistencia",
+  "version": "0.2.0",
+  "main": "electron/main.js",
+  "scripts": {
+    "ng": "ng",
+    "start": "ng serve",
+    "build": "ng build",
+    "watch": "ng build --watch --configuration development",
+    "test": "ng test",
+    "electron:serve": "cross-env ELECTRON_START_URL=http://localhost:4200 electron .",
+    "electron:dev": "concurrently -k -n ANGULAR,ELECTRON -c blue,green \"npm run start\" \"wait-on http://localhost:4200 && npm run electron:serve\"",
+    "electron:pack": "npm run build && electron-builder",
+    "electron:dist": "npm run build -- --configuration production && electron-builder --publish=never"
+  },
+  "prettier": {
+    "printWidth": 100,
+    "singleQuote": true,
+    "overrides": [
+      {
+        "files": "*.html",
+        "options": {
+          "parser": "angular"
+        }
+      }
+    ]
+  },
+  "private": true,
+  "dependencies": {
+    "@angular/animations": "^20.3.28",
+    "@angular/cdk": "^20.2.14",
+    "@angular/common": "^20.3.28",
+    "@angular/compiler": "^20.3.28",
+    "@angular/core": "^20.3.28",
+    "@angular/forms": "^20.3.28",
+    "@angular/platform-browser": "^20.3.28",
+    "@angular/router": "^20.3.28",
+    "@primeuix/themes": "^3.0.0",
+    "@supabase/supabase-js": "^2.112.3",
+    "chart.js": "^4.5.1",
+    "primeicons": "^8.0.0",
+    "primeng": "^20.4.0",
+    "rxjs": "~7.8.0",
+    "tslib": "^2.3.0",
+    "zone.js": "~0.15.0"
+  },
+  "build": {
+    "appId": "pe.daewoo.appasistencia",
+    "productName": "Daewoo Perú - Control de Asistencia",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "dist/app-asistencia/browser/**/*",
+      "electron/**/*",
+      "package.json"
+    ],
+    "win": {
+      "target": "nsis",
+      "icon": "public/favicon.ico"
+    },
+    "mac": {
+      "target": "dmg",
+      "category": "public.app-category.business"
+    }
+  },
+  "devDependencies": {
+    "@angular/build": "^20.1.6",
+    "@angular/cli": "^20.1.6",
+    "@angular/compiler-cli": "^20.1.0",
+    "@types/jasmine": "~5.1.0",
+    "concurrently": "^10.0.5",
+    "cross-env": "^10.1.0",
+    "electron": "^43.4.0",
+    "electron-builder": "^26.15.3",
+    "jasmine-core": "~5.8.0",
+    "karma": "~6.4.0",
+    "karma-chrome-launcher": "~3.2.0",
+    "karma-coverage": "~2.2.0",
+    "karma-jasmine": "~5.1.0",
+    "karma-jasmine-html-reporter": "~2.1.0",
+    "typescript": "~5.8.2",
+    "wait-on": "^9.1.0"
+  }
+}

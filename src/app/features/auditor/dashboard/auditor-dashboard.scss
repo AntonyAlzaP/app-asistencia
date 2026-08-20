@@ -1,0 +1,66 @@
+.dashboard {
+  padding: 1.5rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.dashboard-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+
+  h2 {
+    margin: 0 0 0.25rem;
+  }
+}
+
+.subtitle {
+  margin: 0;
+  color: var(--p-text-muted-color);
+}
+
+.alert-count {
+  color: var(--p-red-500, #e24c4c);
+  font-weight: 600;
+}
+
+.actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.filters {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.filter-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+
+  label {
+    font-size: 0.85rem;
+    font-weight: 600;
+  }
+}
+
+.chart-wrap {
+  position: relative;
+  height: 300px;
+}
+
+.ok-label {
+  color: var(--p-text-muted-color);
+}
+
+:host ::ng-deep .status-tag {
+  font-weight: 800;
+  font-size: 0.8rem;
+  letter-spacing: 0.03em;
+  padding: 0.35rem 0.75rem;
+}

@@ -1,0 +1,90 @@
+.dashboard {
+  display: flex;
+  justify-content: center;
+  padding: 2.5rem 1rem;
+}
+
+.status-card {
+  width: 100%;
+  max-width: 420px;
+  border-top: 6px solid var(--state-color, var(--p-surface-300));
+  transition: border-color 0.2s ease;
+}
+
+.status-card.state-working {
+  --state-color: #15803d;
+  --state-bg: #ecfdf3;
+}
+
+.status-card.state-off {
+  --state-color: #b45309;
+  --state-bg: #fffaeb;
+}
+
+.status-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+  padding: 1rem 0;
+}
+
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1.25rem;
+  border-radius: 999px;
+  background: var(--state-bg, var(--p-surface-100));
+  color: var(--state-color, var(--p-text-muted-color));
+  font-weight: 800;
+  font-size: 1rem;
+  letter-spacing: 0.04em;
+
+  i {
+    font-size: 0.6rem;
+    color: var(--state-color);
+  }
+}
+
+.timer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.timer-label {
+  color: var(--p-text-muted-color);
+  font-size: 0.9rem;
+}
+
+.timer-value {
+  font-size: 2.5rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
+  color: var(--state-color, inherit);
+}
+
+.error {
+  color: var(--p-red-500, #e24c4c);
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+.week-summary {
+  font-size: 0.95rem;
+  color: var(--p-text-muted-color);
+}
+
+:host ::ng-deep .mark-btn {
+  width: 100%;
+
+  .p-button {
+    width: 100%;
+    justify-content: center;
+    padding: 0.9rem;
+    font-size: 1.05rem;
+  }
+}
