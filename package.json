@@ -12,7 +12,8 @@
     "electron:dev": "concurrently -k -n ANGULAR,ELECTRON -c blue,green \"npm run start\" \"wait-on http://localhost:4200 && npm run electron:serve\"",
     "electron:pack": "npm run build && electron-builder",
     "electron:dist": "npm run build -- --configuration production && electron-builder --publish=never",
-    "electron:run": "npm run build -- --configuration production && electron ."
+    "electron:run": "npm run build -- --configuration production && electron .",
+    "postinstall": "node scripts/postinstall-mac.js"
   },
   "prettier": {
     "printWidth": 100,
@@ -64,7 +65,11 @@
     "mac": {
       "target": "dmg",
       "category": "public.app-category.business",
-      "identity": null
+      "identity": null,
+      "extendInfo": {
+        "NSLocationUsageDescription": "Esta app necesita tu ubicación para registrar la marca de asistencia.",
+        "NSLocationWhenInUseUsageDescription": "Esta app necesita tu ubicación para registrar la marca de asistencia."
+      }
     },
     "afterPack": "scripts/afterPack.js",
     "afterSign": "scripts/afterSign.js"
