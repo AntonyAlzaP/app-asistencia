@@ -20,6 +20,11 @@
         <p-password id="password" [ngModel]="password()" (ngModelChange)="password.set($event)" name="password" [feedback]="false" [toggleMask]="true" styleClass="w-full" inputStyleClass="w-full" autocomplete="current-password" />
       </div>
 
+      <div class="remember-field">
+        <p-checkbox [ngModel]="rememberMe()" (ngModelChange)="rememberMe.set($event)" name="rememberMe" inputId="rememberMe" [binary]="true" />
+        <label for="rememberMe">Recordar mis datos en esta laptop</label>
+      </div>
+
       <p-button type="submit" label="Ingresar" [loading]="loading()" styleClass="w-full" />
     </form>
 

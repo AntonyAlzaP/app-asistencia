@@ -1,4 +1,4 @@
-const { app, BrowserWindow, session, shell, Menu, ipcMain } = require('electron');
+const { app, BrowserWindow, session, shell, Menu, ipcMain, safeStorage } = require('electron');
 const path = require('path');
 const fs = require('fs');
 const os = require('os');
@@ -28,6 +28,41 @@ function getOrCreateDeviceId() {
 }
 
 ipcMain.handle('device:get-id', () => getOrCreateDeviceId());
+
+// "Recordar mis datos" on the login form: encrypted at rest via the OS's own
+// credential store (DPAPI on Windows, Keychain on macOS) — never plain text
+// on disk. Still means anyone logged into this OS user account and running
+// the app can read it back, same trade-off as any browser's saved passwords.
+const CREDENTIALS_PATH = path.join(app.getPath('userData'), 'saved-credentials.bin');
+
+ipcMain.handle('credentials:save', (_event, { email, password }) => {
+  if (!safeStorage.isEncryptionAvailable()) {
+    return { ok: false };
+  }
+  const encrypted = safeStorage.encryptString(JSON.stringify({ email, password }));
+  fs.writeFileSync(CREDENTIALS_PATH, encrypted);
+  return { ok: true };
+});
+
+ipcMain.handle('credentials:load', () => {
+  try {
+    if (!safeStorage.isEncryptionAvailable() || !fs.existsSync(CREDENTIALS_PATH)) {
+      return null;
+    }
+    const decrypted = safeStorage.decryptString(fs.readFileSync(CREDENTIALS_PATH));
+    return JSON.parse(decrypted);
+  } catch {
+    return null;
+  }
+});
+
+ipcMain.handle('credentials:clear', () => {
+  try {
+    fs.unlinkSync(CREDENTIALS_PATH);
+  } catch {
+    // Nothing saved — fine.
+  }
+});
 
 // In dev the app runs from source (public/ exists as-is); once packaged, only
 // what's under dist/app-asistencia/browser (which includes a copy of public/,

@@ -52,6 +52,18 @@
   }
 }
 
+.remember-field {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  label {
+    font-size: 0.85rem;
+    color: var(--p-text-muted-color);
+    cursor: pointer;
+  }
+}
+
 .switch-link {
   text-align: center;
   margin-top: 1rem;

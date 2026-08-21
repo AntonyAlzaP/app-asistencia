@@ -20,7 +20,7 @@
       <span class="user-name">{{ auth.profile()?.fullName }}</span>
       <span class="user-role">{{ auth.isAuditor() ? 'Auditor' : 'Colaborador' }}</span>
     </div>
-    <p-button icon="pi pi-key" severity="secondary" [text]="true" routerLink="/perfil/contrasena" pTooltip="Cambiar contraseña" tooltipPosition="bottom" />
+    <p-button icon="pi pi-key" label="Contraseña" severity="secondary" [text]="true" routerLink="/perfil/contrasena" pTooltip="Cambiar contraseña" tooltipPosition="bottom" />
     <p-button icon="pi pi-sign-out" label="Salir" severity="secondary" [text]="true" (onClick)="logout()" />
   </div>
 </header>
